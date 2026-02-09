@@ -41,18 +41,29 @@ const displayVideos = videos => {
     videos.forEach(video => {
         const videoDiv = document.createElement('div');
         videoDiv.innerHTML = `
-            <div class="card bg-base-100 shadow-sm">
-                <figure>
+            <div class="card bg-base-100 ">
+                <figure class="relative">
                     <img
-                    class="w-full"
+                    class="w-full h-[150px] object-cover"
                     src=${video.thumbnail}
                     alt=${video.title || 'Image'} />
+                    <span class="absolute right-2 bottom-2 bg-red-200 text-black text-xs px-2 py-1 rounded-full">3hrs 56 min ago</span>
                 </figure>
-                <div class="card-body">
-                    <h2 class="card-title">${video.title}</h2>
-                    <p>${video.description}</p>
-                    <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Buy Now</button>
+                <div class="flex gap-3 px-0 py-5">
+                    <div class="profile">
+                        <div class="avatar">
+                            <div class="ring-primary ring-offset-base-100 w-6 rounded-full ring-2 ring-offset-2">
+                                <img src=${video.authors[0]?.profile_picture} />
+                            </div>
+                            </div>
+                    </div>
+                    <div class="intro">
+                        <h2 class="text-sm font-semibold">${video.title}</h2>
+                        <p class="text-sm text-gray-500 mt-2 flex gap-1">
+                        By ${video.authors[0]?.profile_name}
+                        <img class="w-5 h-5" src="https://img.icons8.com/?size=48&id=SRJUuaAShjVD&format=png" />
+                        </p>
+                        <p class="text-sm text-gray-500">${video?.others?.views} views</p>
                     </div>
                 </div>
                 </div>
