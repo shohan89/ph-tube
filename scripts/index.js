@@ -11,7 +11,15 @@ const loadCategoties = async () => {
 }
 
 const displayCategories = categories => {
-    console.log(categories);
+    const categoriesContainer = document.getElementById('category-container');
+
+    categories.forEach(category => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.innerHTML = `
+            <button class="btn btn-sm hover:bg-red-600 hover:text-white">${category.category}</button>
+        `;
+        categoriesContainer.appendChild(categoryDiv);
+    });
 }
 
 loadCategoties();
