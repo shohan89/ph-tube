@@ -9,6 +9,18 @@ const loadCategoties = async () => {
         console.error("Error fetching categories: ", error);
     }
 }
+// load category wise videos
+const loadCategoryVideos = async category_id => {
+    // console.log(category_id);
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${category_id}`);
+        const data = await res.json();
+        const categoryVideos = data.category;
+        displayVideos(categoryVideos);
+    } catch (error) {
+        console.error("Error fetching category videos: ", error);
+    }
+}
 
 const displayCategories = categories => {
     const categoriesContainer = document.getElementById('category-container');
@@ -16,7 +28,7 @@ const displayCategories = categories => {
     categories.forEach(category => {
         const categoryDiv = document.createElement('div');
         categoryDiv.innerHTML = `
-            <button class="btn btn-sm hover:bg-red-600 hover:text-white">${category.category}</button>
+            <button onClick="loadCategoryVideos(${category.category_id})" class="btn btn-sm hover:bg-red-600 hover:text-white">${category.category}</button>
         `;
         categoriesContainer.appendChild(categoryDiv);
     });
@@ -37,6 +49,7 @@ const loadVideos = async () => {
 // display videos
 const displayVideos = videos => {
     const videoContainer = document.getElementById('videoContainer');
+    videoContainer.innerHTML = ''; // clear previous videos
 
     videos.forEach(video => {
         const videoDiv = document.createElement('div');
