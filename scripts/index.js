@@ -28,7 +28,7 @@ const displayCategories = categories => {
     categories.forEach(category => {
         const categoryDiv = document.createElement('div');
         categoryDiv.innerHTML = `
-            <button onClick="loadCategoryVideos(${category.category_id})" class="btn btn-sm hover:bg-red-600 hover:text-white">${category.category}</button>
+            <button id='btn-${category.category_id}' onClick="loadCategoryVideos(${category.category_id})" class="btn btn-sm hover:bg-red-600 hover:text-white">${category.category}</button>
         `;
         categoriesContainer.appendChild(categoryDiv);
     });
