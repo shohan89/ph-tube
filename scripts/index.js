@@ -53,9 +53,9 @@ const displayCategories = categories => {
 }
 
 // load videos
-const loadVideos = async () => {
+const loadVideos = async searchText => {
     try {
-        const res = await fetch('https://openapi.programming-hero.com/api/phero-tube/videos');
+        const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText || ''}`);
         const data = await res.json();
         const videos = data.videos;
         removeActiveClass(); // remove active class from all other buttons
@@ -158,5 +158,12 @@ const displayVideos = videos => {
         videoContainer.appendChild(videoDiv);
     })
 }
+
+// add search functionality
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('keyup', e => {
+    const searchText = e.target.value.toLowerCase();
+    loadVideos(searchText);
+})
 
 loadCategoties();
