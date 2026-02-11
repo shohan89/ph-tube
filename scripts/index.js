@@ -147,7 +147,7 @@ const displayVideos = videos => {
                         <h2 class="text-sm font-semibold">${video.title}</h2>
                         <p class="text-sm text-gray-500 mt-2 flex gap-1">
                         By ${video.authors[0]?.profile_name}
-                        <img class="w-5 h-5" src="https://img.icons8.com/?size=48&id=SRJUuaAShjVD&format=png" />
+                        ${video?.authors[0]?.verified ? '<img class="w-5 h-5" src="https://img.icons8.com/?size=48&id=SRJUuaAShjVD&format=png" />' : ''}
                         </p>
                         <p class="text-sm text-gray-500">${video?.others?.views} views</p>
                     </div>
