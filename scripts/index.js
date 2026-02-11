@@ -75,6 +75,37 @@ const loadVideos = async () => {
     }
 }
 
+// load video details
+const loadVideoDetails = async video_id => {
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/video/${video_id}`);
+        const data = await res.json();
+        const singleVideo = data.video;
+        showDetailModal(singleVideo);
+    } catch (error) {
+        console.error('Error fetching video details: ', error);
+    }
+}
+// show video details in modal
+const showDetailModal = video => {
+    console.log(video);
+    const videoDetailModal = document.getElementById('videoDetailsModal');
+    // call the modal
+    videoDetailModal.showModal();
+    const detailContainer = document.getElementById('detailContainer');
+    detailContainer.innerHTML = `
+        <div class="card bg-base-100 shadow-sm">
+            <figure>
+                <img
+                src=${video.thumbnail}
+                alt=${video.title} />
+            </figure>
+            <div class="card-body">
+                <h2 class="card-title">${video.title}</h2>
+                <p>${video.description}</p>
+            </div>
+            </div>`;
+}
 // display videos
 const displayVideos = videos => {
     const videoContainer = document.getElementById('videoContainer');
@@ -121,6 +152,7 @@ const displayVideos = videos => {
                         <p class="text-sm text-gray-500">${video?.others?.views} views</p>
                     </div>
                 </div>
+                <button onclick = loadVideoDetails('${video.video_id}') class="btn btn-block">Show Details</button>
                 </div>
         `;
         videoContainer.appendChild(videoDiv);
