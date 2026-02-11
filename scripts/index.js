@@ -8,6 +8,21 @@ const loadCategoties = async () => {
         console.error("Error fetching categories: ", error);
     }
 }
+// show loading spinner
+const showLoader = () => {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const videoContainer = document.getElementById('videoContainer');
+    loadingSpinner.classList.remove('hidden');
+    videoContainer.classList.add('hidden');
+}
+
+// hide loading spinner
+const hideLoader = () => {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const videoContainer = document.getElementById('videoContainer');
+    loadingSpinner.classList.add('hidden');
+    videoContainer.classList.remove('hidden');
+}
 // remove active class from all buttons
 const removeActiveClass = () => {
     const activeButtons = document.getElementsByClassName('active');
@@ -18,6 +33,7 @@ const removeActiveClass = () => {
 
 // load category wise videos
 const loadCategoryVideos = async category_id => {
+    showLoader();
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${category_id}`);
         const data = await res.json();
@@ -54,6 +70,7 @@ const displayCategories = categories => {
 
 // load videos
 const loadVideos = async searchText => {
+    showLoader();
     try {
         const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText || ''}`);
         const data = await res.json();
@@ -108,6 +125,7 @@ const showDetailModal = video => {
 }
 // display videos
 const displayVideos = videos => {
+    // showLoader();
     const videoContainer = document.getElementById('videoContainer');
     videoContainer.innerHTML = ''; // clear previous videos
     // check if there are no videos then display this block
@@ -121,6 +139,7 @@ const displayVideos = videos => {
             Oops!! Sorry, There is no content here..
           </h2>
         </div>`;
+        hideLoader();
         return;
     }
 
@@ -157,6 +176,7 @@ const displayVideos = videos => {
         `;
         videoContainer.appendChild(videoDiv);
     })
+    hideLoader();
 }
 
 // add search functionality
