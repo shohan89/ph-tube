@@ -24,7 +24,9 @@ const loadCategoryVideos = async category_id => {
         buttons.forEach(button => {
             if (button.id !== `btn-${category_id}`) {
                 button.classList.remove('bg-red-600', 'text-white');
-            }        });
+            }        
+        }
+    );
         displayVideos(categoryVideos);
     } catch (error) {
         console.error("Error fetching category videos: ", error);
@@ -49,6 +51,16 @@ const loadVideos = async () => {
         const res = await fetch('https://openapi.programming-hero.com/api/phero-tube/videos');
         const data = await res.json();
         const videos = data.videos;
+        // add active class to All button
+        const allBtn = document.getElementById('btn-all');
+        allBtn.classList.add('bg-red-600', 'text-white');
+        // remove active class from other buttons
+        const buttons = document.querySelectorAll('#category-container button');
+        buttons.forEach(button => {
+            if (button.id !== 'btn-all') {
+                button.classList.remove('bg-red-600', 'text-white');
+            }
+        });
         displayVideos(videos);
     } catch (error) {
         console.error('Error fetching videos: ', error);
@@ -107,6 +119,4 @@ const displayVideos = videos => {
     })
 }
 
-
-loadVideos();
 loadCategoties();
